@@ -284,10 +284,10 @@ namespace WindowsFormsApp1
             file_content += "[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E972-E325-11CE-BFC1-08002BE10318}\\0012]\n";
             file_content += $"\"NetworkAddress\"=\"{macAddress}\"\n\n";
 
-            file_content += @"[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion]";
+            file_content += "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion]\n";
             file_content += $"\"InstallTime\"=\"{installTime}\"\n\n";
 
-            file_content += @"[HKEY_LOCAL_MACHINE\SOFTWARE\Microsoft\Windows NT\CurrentVersion]";
+            file_content += "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion]\n";
             file_content += $"\"InstallDate\"=\"{installDate}\"\n\n";
         }
 
