@@ -11,7 +11,6 @@ C:\Users\Flavio\source\repos\WindowsFormsApp1\WindowsFormsApp1\obj\Debug\HWID Sp
 C:\Users\Flavio\source\repos\HWID-Spoofer\WindowsFormsApp1\bin\Debug\HWID Spoofer.exe.config
 C:\Users\Flavio\source\repos\HWID-Spoofer\WindowsFormsApp1\bin\Debug\HWID Spoofer.exe
 C:\Users\Flavio\source\repos\HWID-Spoofer\WindowsFormsApp1\bin\Debug\HWID Spoofer.pdb
-C:\Users\Flavio\source\repos\HWID-Spoofer\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.csproj.AssemblyReference.cache
 C:\Users\Flavio\source\repos\HWID-Spoofer\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Main.resources
 C:\Users\Flavio\source\repos\HWID-Spoofer\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.MyHWIDValues.resources
 C:\Users\Flavio\source\repos\HWID-Spoofer\WindowsFormsApp1\obj\Debug\WindowsFormsApp1.Properties.Resources.resources

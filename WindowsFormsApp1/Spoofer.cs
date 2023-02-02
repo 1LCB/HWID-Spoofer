@@ -328,7 +328,7 @@ namespace WindowsFormsApp1
         {
             try
             {
-                using (RegistryKey k = Registry.LocalMachine.OpenSubKey(regedit_path))
+                using (RegistryKey k = Registry.LocalMachine.OpenSubKey(regedit_path, true))
                 {
                     k.SetValue(key, value);
                     return true;
