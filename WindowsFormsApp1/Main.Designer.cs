@@ -119,9 +119,9 @@ namespace WindowsFormsApp1
             this.chkDisks.ForeColor = System.Drawing.Color.White;
             this.chkDisks.Location = new System.Drawing.Point(162, 12);
             this.chkDisks.Name = "chkDisks";
-            this.chkDisks.Size = new System.Drawing.Size(179, 24);
+            this.chkDisks.Size = new System.Drawing.Size(163, 24);
             this.chkDisks.TabIndex = 5;
-            this.chkDisks.Text = "Disks Serial Numbers";
+            this.chkDisks.Text = "Disk Serial Number";
             this.chkDisks.UseVisualStyleBackColor = true;
             // 
             // chkMacAddress
