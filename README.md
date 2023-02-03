@@ -1,4 +1,8 @@
 # HWID Spoofer
+![GitHub repo size](https://img.shields.io/github/repo-size/1LCB/hwid-spoofer?style=for-the-badge)
+![GitHub language count](https://img.shields.io/github/languages/count/1LCB/hwid-spoofer?style=for-the-badge)
+![GitHub forks](https://img.shields.io/github/forks/1LCB/hwid-spoofer?style=for-the-badge)
+
 ![](https://user-images.githubusercontent.com/97853192/216454763-74866c31-2167-423a-937c-c1285bd2bbd0.png)
 
 #### Basic HWID Spoofer written in C#
