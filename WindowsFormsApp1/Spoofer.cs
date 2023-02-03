@@ -20,6 +20,8 @@ namespace WindowsFormsApp1
             public static List<string> regedit_paths = new List<string>();
             public static string[] GetValues()
             {
+                regedit_paths = new List<string>() { };
+
                 List<string> values = new List<string>();
 
                 using (RegistryKey key = Registry.LocalMachine.OpenSubKey(path)) // HKEY_LOCAL_MACHINE\HARDWARE\DEVICEMAP\Scsi
@@ -41,12 +43,16 @@ namespace WindowsFormsApp1
                                         {
                                             using (var key4 = key3.OpenSubKey(target_subkey + @"\Logical Unit Id 0"))
                                             {
+                                                if (key4 == null)
+                                                    continue;
+
                                                 if (key4.GetValueNames().Any(x => x == "SerialNumber"))
                                                 {
                                                     var value = key4.GetValue("SerialNumber").ToString().Trim(); //get the disk serial number
                                                     regedit_paths.Add(key4.Name);
                                                     values.Add(value);
                                                 }
+
                                             }
                                         }
                                     } 
@@ -83,6 +89,9 @@ namespace WindowsFormsApp1
                                         {
                                             using (var key4 = key3.OpenSubKey(target_subkey + @"\Logical Unit Id 0"))
                                             {
+                                                if (key4 == null)
+                                                    continue;
+
                                                 if (key4.GetValueNames().Any(x => x == "SerialNumber"))
                                                 {
                                                     try
@@ -120,7 +129,7 @@ namespace WindowsFormsApp1
             {
                 if (!confirm)
                     return false;
-                return reg.SetValue(key, Guid.NewGuid().ToString());
+                return reg.SetValue(key, "" + Guid.NewGuid().ToString());
             }
         }
         public static class ProductID
@@ -284,9 +293,11 @@ namespace WindowsFormsApp1
             file_content += "[HKEY_LOCAL_MACHINE\\SYSTEM\\CurrentControlSet\\Control\\Class\\{4D36E972-E325-11CE-BFC1-08002BE10318}\\0012]\n";
             file_content += $"\"NetworkAddress\"=\"{macAddress}\"\n\n";
 
+            //install time
             file_content += "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion]\n";
             file_content += $"\"InstallTime\"=\"{installTime}\"\n\n";
 
+            //install date
             file_content += "[HKEY_LOCAL_MACHINE\\SOFTWARE\\Microsoft\\Windows NT\\CurrentVersion]\n";
             file_content += $"\"InstallDate\"=\"{installDate}\"\n\n";
         }
@@ -296,6 +307,8 @@ namespace WindowsFormsApp1
             MakeBackup();
 
             File.WriteAllText(path, file_content);
+
+            file_content = "Windows Registry Editor Version 5.00\n\n";
         }
     }
     # region Helper
@@ -308,37 +321,40 @@ namespace WindowsFormsApp1
         }
         public string Read(string key)
         {
-            try
+            using (RegistryKey b = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+            using (var k = b.OpenSubKey(regedit_path))
             {
-                using (RegistryKey b = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+                try
                 {
-                    var k = b.OpenSubKey(regedit_path);
                     if (k != null)
                         return k.GetValue(key) == null ? "" : k.GetValue(key).ToString();
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                return "";
+            }
 
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
-            return "";
         }
         public bool SetValue(string key, object value)
         {
-            try
+            using (var a = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine, RegistryView.Registry64))
+            using (var k = a.CreateSubKey(regedit_path, true))
             {
-                using (RegistryKey k = Registry.LocalMachine.OpenSubKey(regedit_path, true))
+                try
                 {
                     k.SetValue(key, value);
                     return true;
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return false;
+                }
+                
             }
-            catch (Exception ex)
-            {
-                MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                return false;
-            }
+            
         }
     }
 
@@ -358,7 +374,6 @@ namespace WindowsFormsApp1
                 int x = rand.Next(Alphabet.Length);
                 ran += Alphabet[x];
             }
-            Debug.WriteLine(ran);
             return ran;
         }
     }
